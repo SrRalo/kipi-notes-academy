@@ -25,7 +25,7 @@ const Dashboard: React.FC = () => {
       <div className="container mx-auto p-4">
         <header className="py-6">
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold text-blue-500">Note Nexus Academy</h1>
+            <h1 className="text-3xl font-bold text-blue-500">Kipi</h1>
             <SubjectForm onSubmit={handleAddSubject} buttonLabel="Nueva Materia" />
           </div>
         </header>
@@ -80,3 +80,4 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+

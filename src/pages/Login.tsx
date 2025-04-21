@@ -20,7 +20,6 @@ const Login: React.FC = () => {
     // Simular proceso de autenticación
     setTimeout(() => {
       // En una implementación real, aquí conectaríamos con Supabase
-      // Por ahora simulamos un inicio de sesión exitoso
       
       toast({
         title: "Acceso Concedido",
@@ -36,7 +35,7 @@ const Login: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-blue-500 mb-2">Note Nexus Academy</h1>
+          <h1 className="text-4xl font-bold text-blue-500 mb-2">Kipi</h1>
           <p className="text-muted-foreground">Tu sistema de organización académica</p>
         </div>
 
@@ -92,3 +91,4 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+
