@@ -1,23 +1,46 @@
-
 import React, { useState } from 'react';
 import { Calendar } from '@/components/Calendar';
 import { SubjectForm } from '@/components/SubjectForm';
 import { SubjectNotes } from '@/components/SubjectNotes';
 import { useSubjects } from '@/contexts/SubjectContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { Subject } from '@/types';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Plus, LogOut } from 'lucide-react';
+import { toast } from '@/components/ui/use-toast';
 
 const Dashboard: React.FC = () => {
   const { subjects, addSubject } = useSubjects();
+  const { signOut } = useAuth();
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
 
   const handleSubjectClick = (subject: Subject) => {
     setSelectedSubject(subject);
   };
 
-  const handleAddSubject = (subject: Omit<Subject, 'id'>) => {
-    addSubject(subject);
+  const handleAddSubject = async (subject: Omit<Subject, 'id'>) => {
+    try {
+      await addSubject(subject);
+    } catch (error: any) {
+      // El error ya se muestra en el contexto
+      console.error('Error adding subject:', error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      toast({
+        title: "Sesión cerrada",
+        description: "Has cerrado sesión exitosamente"
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message
+      });
+    }
   };
 
   return (
@@ -30,7 +53,7 @@ const Dashboard: React.FC = () => {
           </div>
         </header>
 
-        <main className="space-y-8">
+        <main className="space-y-8 pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
             <div className="lg:col-span-5">
               <Calendar onSubjectClick={handleSubjectClick} />
@@ -74,6 +97,17 @@ const Dashboard: React.FC = () => {
             </section>
           )}
         </main>
+
+        <footer className="mt-8 pb-8">
+          <Button 
+            variant="destructive" 
+            onClick={handleLogout}
+            className="flex items-center gap-2"
+          >
+            <LogOut className="h-4 w-4" />
+            Cerrar Sesión
+          </Button>
+        </footer>
       </div>
     </div>
   );

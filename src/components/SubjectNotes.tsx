@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Subject, Note } from '@/types';
 import { useNotes } from '@/contexts/NoteContext';
@@ -21,21 +20,36 @@ export const SubjectNotes: React.FC<SubjectNotesProps> = ({ subject }) => {
   const [isNewNoteOpen, setIsNewNoteOpen] = useState(false);
   const [isEditNoteOpen, setIsEditNoteOpen] = useState(false);
 
-  const handleSaveNewNote = (note: Omit<Note, 'id'>) => {
-    addNote(note);
-    setIsNewNoteOpen(false);
+  const handleSaveNewNote = async (note: Omit<Note, 'id'>) => {
+    try {
+      await addNote(note);
+      setIsNewNoteOpen(false);
+    } catch (error) {
+      // El error ya se muestra en el contexto
+      console.error('Error saving note:', error);
+    }
   };
 
-  const handleUpdateNote = (note: Note) => {
-    updateNote(note);
-    setIsEditNoteOpen(false);
-    setSelectedNote(undefined);
+  const handleUpdateNote = async (note: Note) => {
+    try {
+      await updateNote(note);
+      setIsEditNoteOpen(false);
+      setSelectedNote(undefined);
+    } catch (error) {
+      // El error ya se muestra en el contexto
+      console.error('Error updating note:', error);
+    }
   };
 
-  const handleDeleteNote = (id: string) => {
-    deleteNote(id);
-    setIsEditNoteOpen(false);
-    setSelectedNote(undefined);
+  const handleDeleteNote = async (id: string) => {
+    try {
+      await deleteNote(id);
+      setIsEditNoteOpen(false);
+      setSelectedNote(undefined);
+    } catch (error) {
+      // El error ya se muestra en el contexto
+      console.error('Error deleting note:', error);
+    }
   };
 
   const handleNoteClick = (note: Note) => {

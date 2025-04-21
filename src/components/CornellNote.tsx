@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Note } from '@/types';
 import { Button } from './ui/button';
@@ -129,7 +128,7 @@ export const CornellNote: React.FC<CornellNoteProps> = ({
               />
             </div>
 
-            <div className="cornell-summary">
+            <div className="cornell-summary space-y-4">
               <Label htmlFor="summary" className="text-lg font-semibold mb-2 block">Resumen</Label>
               <Textarea
                 id="summary"
@@ -138,20 +137,21 @@ export const CornellNote: React.FC<CornellNoteProps> = ({
                 value={summary}
                 onChange={(e) => setSummary(e.target.value)}
               />
+              <div className="flex justify-between mt-4">
+                <div>
+                  {note && onDelete && (
+                    <Button variant="destructive" onClick={handleDelete}>
+                      Eliminar Nota
+                    </Button>
+                  )}
+                </div>
+                <Button onClick={handleSave}>
+                  {note ? 'Guardar Cambios' : 'Guardar Nota'}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-
-        <DialogFooter className="gap-2">
-          {note && onDelete && (
-            <Button variant="destructive" onClick={handleDelete}>
-              Eliminar Nota
-            </Button>
-          )}
-          <Button onClick={handleSave}>
-            {note ? 'Guardar Cambios' : 'Guardar Nota'}
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
