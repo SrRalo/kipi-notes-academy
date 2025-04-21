@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,18 +35,6 @@
 
     --radius: 0.5rem;
   }
-
-  * {
-    @apply border-border;
-    letter-spacing: -0.03em;
-  }
-  body {
-    @apply bg-background text-foreground;
-    font-family: 'Aeonik', system-ui, sans-serif;
-  }
-  html {
-    @apply dark;
-  }
 }
 
 @font-face {
@@ -81,9 +70,18 @@
     @apply bg-background text-foreground;
     font-family: 'Aeonik', system-ui, sans-serif;
   }
-  html {
-    @apply dark;
+}
+
+/* Add dark class to HTML element */
+@layer utilities {
+  .dark {
+    color-scheme: dark;
   }
+}
+
+/* Add script to set dark mode */
+:root {
+  color-scheme: dark;
 }
 
 /* Estilos para la aplicación */
