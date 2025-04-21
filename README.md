@@ -1,73 +1,89 @@
-# Welcome to your Lovable project
+# 🎓 Kipi - Tu Sistema de Organización Académica
 
-## Project info
+<div align="center">
 
-**URL**: https://lovable.dev/projects/c54bc1de-c38c-466e-830c-82cb1fc0caa7
+![Kipi Logo](public/favicon.ico)
 
-## How can I edit this code?
+[![Made with Love](https://img.shields.io/badge/Made%20with-Love-ff69b4.svg)](https://github.com/yourusername/kipi)
+[![Built with Supabase](https://img.shields.io/badge/Built%20with-Supabase-3ECF8E?logo=supabase)](https://supabase.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-There are several ways of editing your application.
+</div>
 
-**Use Lovable**
+## 🌟 Características
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/c54bc1de-c38c-466e-830c-82cb1fc0caa7) and start prompting.
+- 📝 **Método Cornell de Toma de Notas**: Sistema probado para mejorar el aprendizaje y la retención
+- 📅 **Calendario Interactivo**: Visualiza tu horario de clases de forma intuitiva
+- 👩‍🏫 **Gestión de Materias**: Organiza tus clases, profesores y aulas
+- 📊 **Estadísticas de Asistencia**: Monitorea tu asistencia a clases
+- 🌙 **Modo Oscuro**: Interfaz elegante y cómoda para la vista
+- 🔄 **Sincronización en Tiempo Real**: Tus datos siempre actualizados gracias a Supabase
+- 📱 **Diseño Responsive**: Accede desde cualquier dispositivo
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 Tecnologías
 
-**Use your preferred IDE**
+- **Frontend**: React + TypeScript + Vite
+- **Estilizado**: TailwindCSS + Shadcn/ui
+- **Backend**: Supabase (Authentication + Database)
+- **Estado**: React Context API
+- **Routing**: React Router
+- **Iconos**: Lucide Icons
+- **Fecha y Hora**: date-fns
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠️ Instalación
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Clona el repositorio:
+```bash
+git clone https://github.com/yourusername/kipi.git
+cd kipi
+```
 
-Follow these steps:
+2. Instala las dependencias:
+```bash
+npm install
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. Configura las variables de entorno:
+```bash
+cp .env.example .env
+```
+Edita el archivo `.env` con tus credenciales de Supabase.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+4. Inicia el servidor de desarrollo:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 📖 Uso
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. **Registro/Inicio de Sesión**: Crea una cuenta o inicia sesión con tu correo electrónico
+2. **Configura tus Materias**: Añade tus clases con horarios, profesores y aulas
+3. **Toma Notas**: Utiliza el método Cornell para tomar notas efectivas durante tus clases
+4. **Monitorea tu Progreso**: Revisa tus estadísticas de asistencia y notas
 
-**Use GitHub Codespaces**
+## 🤝 Contribuir
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+¡Las contribuciones son bienvenidas! Por favor, lee las [guías de contribución](CONTRIBUTING.md) antes de empezar.
 
-## What technologies are used for this project?
+## 📄 Licencia
 
-This project is built with:
+Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) para más detalles.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 💖 Agradecimientos
 
-## How can I deploy this project?
+- [Supabase](https://supabase.com) por proporcionar una increíble plataforma backend
+- [Shadcn/ui](https://ui.shadcn.com) por los hermosos componentes de UI
+- [TailwindCSS](https://tailwindcss.com) por hacer el estilizado más fácil y mantenible
 
-Simply open [Lovable](https://lovable.dev/projects/c54bc1de-c38c-466e-830c-82cb1fc0caa7) and click on Share -> Publish.
+---
 
-## Can I connect a custom domain to my Lovable project?
+<div align="center">
 
-Yes, you can!
+### ⭐ ¡No olvides dejar tu estrella si te gusta el proyecto! ⭐
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Hecho con 💙 por [Tu Nombre](https://github.com/yourusername)
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+</div>
