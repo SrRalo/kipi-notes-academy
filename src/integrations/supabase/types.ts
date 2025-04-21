@@ -9,7 +9,116 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      notes: {
+        Row: {
+          attendance: boolean | null
+          created_at: string
+          cues: string | null
+          date: string
+          id: string
+          notes: string | null
+          subject_id: string
+          summary: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          attendance?: boolean | null
+          created_at?: string
+          cues?: string | null
+          date?: string
+          id?: string
+          notes?: string | null
+          subject_id: string
+          summary?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          attendance?: boolean | null
+          created_at?: string
+          cues?: string | null
+          date?: string
+          id?: string
+          notes?: string | null
+          subject_id?: string
+          summary?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notes_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      subjects: {
+        Row: {
+          classroom: string | null
+          color: string
+          created_at: string
+          id: string
+          name: string
+          schedule: Json | null
+          teacher: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          classroom?: string | null
+          color: string
+          created_at?: string
+          id?: string
+          name: string
+          schedule?: Json | null
+          teacher?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          classroom?: string | null
+          color?: string
+          created_at?: string
+          id?: string
+          name?: string
+          schedule?: Json | null
+          teacher?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
