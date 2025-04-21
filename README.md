@@ -84,6 +84,6 @@ Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) pa
 
 ### ⭐ ¡No olvides dejar tu estrella si te gusta el proyecto! ⭐
 
-Hecho con 💙 por [Tu Nombre](https://github.com/yourusername)
+Hecho con 💙 por [Tu Nombre](https://github.com/SrRalo)
 
 </div>
