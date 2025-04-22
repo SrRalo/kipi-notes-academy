@@ -84,6 +84,6 @@ Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) pa
 
 ### ⭐ ¡No olvides dejar tu estrella si te gusta el proyecto! ⭐
 
-Hecho con 💙 por Sr.Ralo (https://github.com/SrRalo)
+Hecho con 💙 por Sr.Ralo con Lovable(https://github.com/SrRalo)
 
 </div>
