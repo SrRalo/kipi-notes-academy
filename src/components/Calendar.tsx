@@ -28,8 +28,9 @@ export const Calendar: React.FC<CalendarProps> = ({ onSubjectClick }) => {
     const endHour = parseInt(schedule.endTime.split(':')[0]);
     const endMinute = parseInt(schedule.endTime.split(':')[1]);
     
-    const startPosition = (startHour - 7) * 60 + startMinute;
-    const duration = (endHour - startHour) * 60 + (endMinute - startMinute);
+    // Cada hora ahora ocupa 64px (h-16)
+    const startPosition = ((startHour - 7) * 64) + ((startMinute / 60) * 64);
+    const duration = ((endHour - startHour) * 64) + (((endMinute - startMinute) / 60) * 64);
     
     return {
       top: `${startPosition}px`,
@@ -62,16 +63,16 @@ export const Calendar: React.FC<CalendarProps> = ({ onSubjectClick }) => {
     return daysToRender.map((day, index) => {
       const dayIndex = isMobile ? currentDayIndex : index + 1;
       return (
-        <div key={day} className="relative flex flex-col border-l border-border">
+        <div key={day} className="relative flex flex-col border-l border-border flex-1 min-w-[150px]">
           {/* Cabecera del día */}
-          <div className="h-10 flex items-center justify-center font-medium sticky top-0 bg-card z-10">
+          <div className="h-12 flex items-center justify-center font-medium sticky top-0 bg-card z-10 text-base">
             {day.charAt(0).toUpperCase() + day.slice(1)}
           </div>
           
           {/* Horas */}
           <div className="flex-1 relative">
             {hourSlots.map(hour => (
-              <div key={hour} className="h-12 border-t border-border" />
+              <div key={hour} className="h-16 border-t border-border" />
             ))}
             
             {/* Eventos */}
@@ -83,7 +84,7 @@ export const Calendar: React.FC<CalendarProps> = ({ onSubjectClick }) => {
                   return (
                     <div
                       key={`${subject.id}-${scheduleIndex}`}
-                      className="absolute w-[95%] left-[2.5%] rounded-md p-1 overflow-hidden text-sm shadow-md cursor-pointer hover:opacity-90 transition-opacity"
+                      className="absolute w-[95%] left-[2.5%] rounded-md p-2 overflow-hidden text-sm shadow-md cursor-pointer hover:opacity-90 transition-opacity"
                       style={{
                         top: position.top,
                         height: position.height,
@@ -92,10 +93,10 @@ export const Calendar: React.FC<CalendarProps> = ({ onSubjectClick }) => {
                       }}
                       onClick={() => onSubjectClick(subject)}
                     >
-                      <div className="font-medium">{subject.name}</div>
-                      <div className="text-xs opacity-90">{schedule.startTime} - {schedule.endTime}</div>
+                      <div className="font-medium text-base">{subject.name}</div>
+                      <div className="text-sm opacity-90">{schedule.startTime} - {schedule.endTime}</div>
                       {subject.classroom && (
-                        <div className="text-xs opacity-90">Aula: {subject.classroom}</div>
+                        <div className="text-sm opacity-90">Aula: {subject.classroom}</div>
                       )}
                     </div>
                   );
@@ -135,19 +136,19 @@ export const Calendar: React.FC<CalendarProps> = ({ onSubjectClick }) => {
         </div>
       </CardHeader>
       <CardContent>
-        <div className={`grid ${isMobile ? 'grid-cols-3' : 'grid-cols-8'} gap-1 h-[600px] overflow-auto`}>
+        <div className="flex h-[700px] overflow-auto">
           {/* Columna de horas */}
-          <div className={`flex flex-col text-right pr-2 ${isMobile ? 'col-span-1' : ''}`}>
-            <div className="h-10"></div>
+          <div className="flex-none w-20 text-right pr-4">
+            <div className="h-12"></div>
             {hourSlots.map(hour => (
-              <div key={hour} className="h-12 flex items-center justify-end text-sm text-muted-foreground">
+              <div key={hour} className="h-16 flex items-center justify-end text-base text-muted-foreground">
                 {hour}:00
               </div>
             ))}
           </div>
           
-          {/* Columnas de días */}
-          <div className={isMobile ? 'col-span-2' : ''}>
+          {/* Contenedor de días */}
+          <div className="flex-1 flex">
             {renderDayColumns()}
           </div>
         </div>

@@ -55,10 +55,10 @@ const Dashboard: React.FC = () => {
 
         <main className="space-y-8 pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 order-2 lg:order-1">
               <Calendar onSubjectClick={handleSubjectClick} />
             </div>
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 order-1 lg:order-2">
               <div className="bg-gray-800 rounded-lg p-4 h-full">
                 <h2 className="text-xl font-bold mb-4">Materias</h2>
                 {subjects.length === 0 ? (
@@ -71,11 +71,11 @@ const Dashboard: React.FC = () => {
                     />
                   </div>
                 ) : (
-                  <div className="space-y-2">
+                  <div className="space-y-2 flex flex-col">
                     {subjects.map((subject) => (
                       <div
                         key={subject.id}
-                        className="p-3 rounded-md cursor-pointer transition-colors hover:bg-gray-700"
+                        className="p-3 rounded-md cursor-pointer transition-colors hover:bg-gray-700 w-full"
                         style={{ borderLeft: `4px solid ${subject.color}` }}
                         onClick={() => handleSubjectClick(subject)}
                       >
