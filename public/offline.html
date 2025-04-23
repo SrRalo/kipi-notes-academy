@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kipi - Sin Conexión</title>
+    <link rel="manifest" href="/manifest.json">
+    <style>
+        body {
+            font-family: 'Aeonik', system-ui, -apple-system, sans-serif;
+            background-color: hsl(222, 47%, 11%);
+            color: hsl(210, 40%, 98%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: hsl(215, 20.2%, 65.1%);
+        }
+        .icon {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 2rem;
+        }
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            margin-top: 1.5rem;
+            background-color: hsl(210, 100%, 50%);
+            color: hsl(222.2, 47.4%, 11.2%);
+            border-radius: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .button:hover {
+            opacity: 0.9;
+        }
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .icon {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/icons/icon-192x192.png" alt="Kipi Logo" class="icon">
+        <h1>Sin conexión a Internet</h1>
+        <p>No pudimos cargar la página que buscabas porque parece que no tienes conexión a Internet. Sin embargo, aún puedes acceder a tus notas y materias guardadas previamente.</p>
+        <a href="/" class="button">Intentar de nuevo</a>
+    </div>
+    <script>
+        // Check for connection and reload when online
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>

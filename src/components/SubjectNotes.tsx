@@ -1,31 +1,36 @@
 import React, { useState } from 'react';
 import { Subject, Note } from '@/types';
 import { useNotes } from '@/contexts/NoteContext';
+import { useSubjects } from '@/contexts/SubjectContext';
 import { CornellNote } from './CornellNote';
+import { SubjectForm } from './SubjectForm';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from './ui/card';
 import { Badge } from './ui/badge';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
 
 interface SubjectNotesProps {
   subject: Subject;
+  onSubjectDeleted?: () => void;
 }
 
-export const SubjectNotes: React.FC<SubjectNotesProps> = ({ subject }) => {
+export const SubjectNotes: React.FC<SubjectNotesProps> = ({ subject, onSubjectDeleted }) => {
   const { getNotesBySubject, addNote, updateNote, deleteNote } = useNotes();
+  const { updateSubject, deleteSubject } = useSubjects();
   const notes = getNotesBySubject(subject.id);
   
   const [selectedNote, setSelectedNote] = useState<Note | undefined>(undefined);
   const [isNewNoteOpen, setIsNewNoteOpen] = useState(false);
   const [isEditNoteOpen, setIsEditNoteOpen] = useState(false);
+  const [isEditSubjectOpen, setIsEditSubjectOpen] = useState(false);
 
   const handleSaveNewNote = async (note: Omit<Note, 'id'>) => {
     try {
       await addNote(note);
       setIsNewNoteOpen(false);
     } catch (error) {
-      // El error ya se muestra en el contexto
       console.error('Error saving note:', error);
     }
   };
@@ -36,7 +41,6 @@ export const SubjectNotes: React.FC<SubjectNotesProps> = ({ subject }) => {
       setIsEditNoteOpen(false);
       setSelectedNote(undefined);
     } catch (error) {
-      // El error ya se muestra en el contexto
       console.error('Error updating note:', error);
     }
   };
@@ -47,7 +51,6 @@ export const SubjectNotes: React.FC<SubjectNotesProps> = ({ subject }) => {
       setIsEditNoteOpen(false);
       setSelectedNote(undefined);
     } catch (error) {
-      // El error ya se muestra en el contexto
       console.error('Error deleting note:', error);
     }
   };
@@ -55,6 +58,23 @@ export const SubjectNotes: React.FC<SubjectNotesProps> = ({ subject }) => {
   const handleNoteClick = (note: Note) => {
     setSelectedNote(note);
     setIsEditNoteOpen(true);
+  };
+
+  const handleEditSubject = async (updatedSubject: Omit<Subject, 'id'>) => {
+    try {
+      await updateSubject({ ...updatedSubject, id: subject.id });
+    } catch (error) {
+      console.error('Error updating subject:', error);
+    }
+  };
+
+  const handleDeleteSubject = async () => {
+    try {
+      await deleteSubject(subject.id);
+      onSubjectDeleted?.();
+    } catch (error) {
+      console.error('Error deleting subject:', error);
+    }
   };
 
   const formatDate = (dateStr: string) => {
@@ -65,7 +85,6 @@ export const SubjectNotes: React.FC<SubjectNotesProps> = ({ subject }) => {
     }
   };
 
-  // Calcular estadísticas
   const totalNotes = notes.length;
   const totalAttendances = notes.filter(note => note.attendance).length;
   const attendanceRate = totalNotes > 0 ? (totalAttendances / totalNotes) * 100 : 0;
@@ -81,6 +100,15 @@ export const SubjectNotes: React.FC<SubjectNotesProps> = ({ subject }) => {
         </div>
         <Button onClick={() => setIsNewNoteOpen(true)}>Nueva Nota</Button>
       </div>
+
+      <SubjectForm 
+        initialData={subject}
+        onSubmit={handleEditSubject}
+        buttonLabel="Editar Materia"
+        open={isEditSubjectOpen}
+        setOpen={setIsEditSubjectOpen}
+        onDelete={handleDeleteSubject}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>

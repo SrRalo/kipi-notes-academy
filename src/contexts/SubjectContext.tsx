@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Subject } from '@/types';
-import { v4 as uuidv4 } from 'uuid';
+import { Subject, Schedule } from '@/types';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './AuthContext';
 import { toast } from '@/components/ui/use-toast';
@@ -27,10 +26,11 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const { user } = useAuth();
 
-  // Cargar materias al iniciar y cuando cambie el usuario
   useEffect(() => {
     if (user) {
       loadSubjects();
+    } else {
+      setSubjects([]);
     }
   }, [user]);
 
@@ -43,13 +43,35 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
       if (error) throw error;
 
-      setSubjects(data || []);
+      const formattedData = (data || []).map(subject => {
+        let schedule;
+        try {
+          schedule = typeof subject.schedule === 'string' 
+            ? JSON.parse(subject.schedule) 
+            : subject.schedule;
+        } catch (e) {
+          console.error('Error parsing schedule:', e);
+          schedule = [];
+        }
+
+        return {
+          id: subject.id,
+          name: subject.name,
+          color: subject.color,
+          teacher: subject.teacher || undefined,
+          classroom: subject.classroom || undefined,
+          schedule: schedule as Schedule[]
+        };
+      });
+
+      setSubjects(formattedData);
     } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error al cargar materias",
         description: error.message
       });
+      console.error('Error loading subjects:', error);
     }
   };
 
@@ -57,19 +79,29 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     try {
       const { data, error } = await supabase
         .from('subjects')
-        .insert([
-          { 
-            ...subject,
-            user_id: user?.id,
-            schedule: subject.schedule
-          }
-        ])
+        .insert([{ 
+          name: subject.name,
+          color: subject.color,
+          teacher: subject.teacher,
+          classroom: subject.classroom,
+          schedule: JSON.stringify(subject.schedule),
+          user_id: user?.id
+        }])
         .select()
         .single();
 
       if (error) throw error;
 
-      setSubjects(prev => [...prev, data]);
+      const formattedSubject: Subject = {
+        id: data.id,
+        name: data.name,
+        color: data.color,
+        teacher: data.teacher || undefined,
+        classroom: data.classroom || undefined,
+        schedule: typeof data.schedule === 'string' ? JSON.parse(data.schedule) : data.schedule
+      };
+
+      setSubjects(prev => [...prev, formattedSubject]);
       toast({
         title: "Materia agregada",
         description: "La materia se ha agregado correctamente"
@@ -93,7 +125,7 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
           color: updatedSubject.color,
           teacher: updatedSubject.teacher,
           classroom: updatedSubject.classroom,
-          schedule: updatedSubject.schedule
+          schedule: JSON.stringify(updatedSubject.schedule)
         })
         .eq('id', updatedSubject.id)
         .eq('user_id', user?.id);

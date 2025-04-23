@@ -93,7 +93,10 @@ const Dashboard: React.FC = () => {
 
           {selectedSubject && (
             <section className="py-4">
-              <SubjectNotes subject={selectedSubject} />
+              <SubjectNotes 
+                subject={selectedSubject} 
+                onSubjectDeleted={() => setSelectedSubject(null)} 
+              />
             </section>
           )}
         </main>

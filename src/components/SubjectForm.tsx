@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,7 +9,7 @@ import { Label } from './ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from './ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
-
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from './ui/alert-dialog';
 
 // Predefined colors for subjects
 const SUBJECT_COLORS = [
@@ -47,15 +46,25 @@ interface SubjectFormProps {
   initialData?: Subject;
   buttonLabel?: string;
   buttonVariant?: 'default' | 'outline' | 'secondary' | 'ghost' | 'link' | 'destructive';
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
+  onDelete?: () => void;
 }
 
-export const SubjectForm: React.FC<SubjectFormProps> = ({ 
-  onSubmit, 
-  initialData, 
-  buttonLabel = 'Agregar Materia',
-  buttonVariant = 'default'
+export const SubjectForm: React.FC<SubjectFormProps> = ({
+  onSubmit,
+  initialData,
+  buttonLabel = 'Nueva Materia',
+  buttonVariant = 'default',
+  open: controlledOpen,
+  setOpen: setControlledOpen,
+  onDelete
 }) => {
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  
+  const open = controlledOpen ?? internalOpen;
+  const setOpen = setControlledOpen ?? setInternalOpen;
 
   const form = useForm<SubjectFormValues>({
     resolver: zodResolver(subjectSchema),
@@ -275,8 +284,41 @@ export const SubjectForm: React.FC<SubjectFormProps> = ({
               ))}
             </div>
 
-            <DialogFooter>
-              <Button type="submit">{initialData ? 'Guardar Cambios' : 'Agregar Materia'}</Button>
+            <DialogFooter className="flex-col gap-2">
+              <Button type="submit" className="w-full">{initialData ? 'Guardar Cambios' : 'Agregar Materia'}</Button>
+              {initialData && onDelete && (
+                <>
+                  <Button 
+                    type="button" 
+                    variant="destructive" 
+                    className="w-full"
+                    onClick={() => setShowDeleteDialog(true)}
+                  >
+                    Eliminar Materia
+                  </Button>
+
+                  <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Esta acción eliminará la materia y todas sus notas asociadas. Esta acción no se puede deshacer.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => {
+                          onDelete();
+                          setShowDeleteDialog(false);
+                          setOpen(false);
+                        }}>
+                          Eliminar
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </>
+              )}
             </DialogFooter>
           </form>
         </Form>
