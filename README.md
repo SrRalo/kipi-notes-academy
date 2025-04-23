@@ -4,7 +4,7 @@
 
 ![Kipi Logo](public/favicon.ico)
 
-[![Made with Love](https://img.shields.io/badge/Made%20with-Love-ff69b4.svg)](https://github.com/yourusername/kipi)
+[![Made with Lovable](https://img.shields.io/badge/Made%20with-Love-ff69b4.svg)](https://github.com/yourusername/kipi)
 [![Built with Supabase](https://img.shields.io/badge/Built%20with-Supabase-3ECF8E?logo=supabase)](https://supabase.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)](https://reactjs.org/)
@@ -84,6 +84,6 @@ Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) pa
 
 ### ⭐ ¡No olvides dejar tu estrella si te gusta el proyecto! ⭐
 
-Hecho con 💙 por [Tu Nombre](https://github.com/yourusername)
+Hecho con 💙 por Sr.Ralo con Lovable(https://github.com/SrRalo)
 
 </div>
